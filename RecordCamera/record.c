@@ -37,8 +37,8 @@ int main(int argc, char *argv[]) {
 	memset(&Rdata, 0, sizeof(Rdata));
 	Rdata.Rstate = GST_STATE_NULL;
 
-	Rdata.Raudiosource = gst_element_factory_make("alsasrc", "audio-source");
-	Rdata.Rvideosource = gst_element_factory_make("v4l2src", "video-source");
+	Rdata.Raudiosource = gst_element_factory_make("audiotestsrc", "audio-source");
+	Rdata.Rvideosource = gst_element_factory_make("videotestsrc", "video-source");
 	Rdata.Raudioenc = gst_element_factory_make("voaacenc", "audio-enc");
 	Rdata.Rvideoenc = gst_element_factory_make("jpegenc", "video-enc");
 	Rdata.Rqueue = gst_element_factory_make("queue", "audio-queue");
@@ -63,9 +63,9 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	g_object_set(Rdata.Rsink, "location", argv[1], NULL);
-	g_object_set(Rdata.Raudiosource, "device", "hw:1,0", NULL);
-	g_object_set(Rdata.Rvideosource, "device", "/dev/video0", NULL);
+	g_object_set(Rdata.Rsink, "location", "test.mp4", NULL);
+	// g_object_set(Rdata.Raudiosource, "device", "hw:1,0", NULL);
+	// g_object_set(Rdata.Rvideosource, "device", "/dev/video0", NULL);
 
 	ret = gst_element_set_state(Rdata.Rpipeline, GST_STATE_PLAYING);
 
